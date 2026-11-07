@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Logs{% endblock %}
+{% block heading %}Admin · Logs{% endblock %}
+{% block subheading %}Structured log lines from logs/app.log, newest first. Click a row for its request details. Admin only.{% endblock %}
+{% block content %}
+<section class="card" id="logs-card">
+  <div class="card-head wrap">
+    <div class="seg" id="log-level" role="group" aria-label="Level filter">
+      <button data-level="" class="on">All</button><button data-level="INFO">Info</button>
+      <button data-level="WARNING">Warning</button><button data-level="ERROR">Error</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="log-security"> Security events only</label>
+    <label class="toggle"><input type="checkbox" id="log-live"> Auto-refresh (3 s)</label>
+    <button class="btn btn-ghost btn-sm" id="log-refresh" type="button">{{ icon('refresh') }}Refresh</button>
+    <span class="muted small" id="log-count"></span>
+    <a class="btn btn-ghost btn-sm" href="{{ url_for('admin.demo_500') }}" id="force-500">{{ icon('alert') }}Force a 500 error</a>
+  </div>
+  <div class="table-wrap">
+    <table class="table logs" id="logs-table">
+      <thead><tr><th>Time (UTC)</th><th>Level</th><th>Event</th><th>Message</th></tr></thead>
+      <tbody id="logs-body"><tr><td colspan="4"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></td></tr></tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/logs.js') }}"></script>{% endblock %}

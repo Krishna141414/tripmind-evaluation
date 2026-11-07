@@ -1,0 +1,27 @@
+{% extends "auth/_layout.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Sign in{% endblock %}
+{% block card_id %}login-card{% endblock %}
+{% block form %}
+<h1>Welcome back</h1>
+<p class="muted">Sign in to ask TripMind.</p>
+{% if errors.form %}<div class="alert alert-error" role="alert">{{ icon('alert') }}{{ errors.form }}</div>{% endif %}
+<form method="post" action="{{ url_for('auth.login') }}" id="login-form" class="form" novalidate data-validate="login">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label class="field">
+    <span>Username</span>
+    <input name="username" id="username" autocomplete="username" maxlength="30" value="{{ form.username or '' }}" required>
+    <small class="field-error" data-for="username">{{ errors.username or '' }}</small>
+  </label>
+  <label class="field">
+    <span>Password</span>
+    <input name="password" id="password" type="password" autocomplete="current-password" maxlength="128" required>
+    <small class="field-error" data-for="password">{{ errors.password or '' }}</small>
+  </label>
+  <button class="btn btn-primary btn-block" type="submit" id="login-submit">{{ icon('lock') }}Sign in</button>
+  <button class="btn btn-soft btn-block" type="button" id="demo-btn">{{ icon('sparkles') }}Use demo account</button>
+</form>
+<p class="auth-switch">New here? <a href="{{ url_for('auth.register') }}">Create an account</a></p>
+<button class="btn btn-ghost btn-block tour-entry" type="button" data-tour-start>{{ icon('flag') }}Guided Tour</button>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/auth.js') }}"></script>{% endblock %}

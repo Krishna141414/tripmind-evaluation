@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Conversation #{{ c.id }}{% endblock %}
+{% block heading %}Conversation #{{ c.id }}{% endblock %}
+{% block subheading %}Loaded from the database · {{ c.created_at.strftime('%d %b %Y %H:%M') }} UTC{% endblock %}
+{% block content %}
+<a class="btn btn-ghost btn-sm back-link" href="{{ url_for('main.history') }}">{{ icon('arrow-right', 'flip') }}Back to history</a>
+<section class="card detail">
+  <div class="msg msg-user static"><span class="avatar sm">{{ current_user.username[:1]|upper }}</span><p>{{ c.question }}</p></div>
+  <div class="msg msg-ai static">
+    <div class="msg-meta">{% include "_status_badge.html" %}<span class="tag">{{ c.provider }}</span><span class="tag">{{ c.channel }}</span><span class="muted small">{{ (c.latency_ms/1000)|round(2) }} s</span></div>
+    <p class="answer" id="detail-answer">{{ c.answer }}</p>
+  </div>
+  {% if c.sources %}
+  <h3 class="section-title">{{ icon('file') }}Sources</h3>
+  <div class="sources" id="detail-sources"></div>
+  {% endif %}
+  <script type="application/json" id="detail-data">{{ {'answer': c.answer, 'sources': c.sources}|tojson }}</script>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/detail.js') }}"></script>{% endblock %}

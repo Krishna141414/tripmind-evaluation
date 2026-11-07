@@ -1,0 +1,6 @@
+{% from "_icons.html" import icon with context %}
+{%- if c.status == 'answered' -%}<span class="badge badge-success">{{ icon('check') }}Answered</span>
+{%- elif c.status == 'not_found' -%}<span class="badge badge-warn">{{ icon('search') }}Not in documents</span>
+{%- elif c.status == 'blocked' -%}<span class="badge badge-error">{{ icon('shield') }}Blocked</span>
+{%- else -%}<span class="badge">{{ c.status }}</span>{%- endif -%}
+{%- if c.fallback %} <span class="badge badge-warn badge-sm">Fallback answer</span>{% endif -%}

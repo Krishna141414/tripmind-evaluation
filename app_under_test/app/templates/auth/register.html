@@ -1,0 +1,35 @@
+{% extends "auth/_layout.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Create account{% endblock %}
+{% block card_id %}register-card{% endblock %}
+{% block form %}
+<h1>Create your account</h1>
+<p class="muted">Free, local and private. Takes 10 seconds.</p>
+{% if errors.form %}<div class="alert alert-error" role="alert">{{ icon('alert') }}{{ errors.form }}</div>{% endif %}
+<form method="post" action="{{ url_for('auth.register') }}" id="register-form" class="form" novalidate data-validate="register">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label class="field">
+    <span>Username</span>
+    <input name="username" id="username" autocomplete="username" maxlength="30" value="{{ form.username or '' }}" required>
+    <small class="hint">3-30 characters: letters, numbers, underscore.</small>
+    <small class="field-error" data-for="username">{{ errors.username or '' }}</small>
+  </label>
+  <label class="field">
+    <span>Password</span>
+    <input name="password" id="password" type="password" autocomplete="new-password" maxlength="64" required>
+    <ul class="pw-rules" id="pw-rules">
+      <li data-rule="len">8+ characters</li><li data-rule="lower">lowercase</li><li data-rule="upper">uppercase</li>
+      <li data-rule="digit">number</li><li data-rule="symbol">symbol</li>
+    </ul>
+    <small class="field-error" data-for="password">{{ errors.password or '' }}</small>
+  </label>
+  <label class="field">
+    <span>Confirm password</span>
+    <input name="confirm" id="confirm" type="password" autocomplete="new-password" maxlength="64" required>
+    <small class="field-error" data-for="confirm">{{ errors.confirm or '' }}</small>
+  </label>
+  <button class="btn btn-primary btn-block" type="submit">{{ icon('user') }}Create account</button>
+</form>
+<p class="auth-switch">Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/auth.js') }}"></script>{% endblock %}

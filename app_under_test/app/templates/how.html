@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}How it works{% endblock %}
+{% block heading %}How it works{% endblock %}
+{% block subheading %}From a question to a cited, saved answer, and where each production feature lives.{% endblock %}
+{% block content %}
+<section class="card" id="arch">
+  <div class="card-head"><h3>{{ icon('layers') }}Architecture</h3><span class="muted small">Flask app factory + blueprints</span></div>
+  <div class="arch">
+    <div class="arch-col">
+      <div class="node" data-flow="1">{{ icon('user') }}<b>Browser</b><small>Jinja pages + vanilla JS</small></div>
+      <div class="node" data-flow="1">{{ icon('code') }}<b>API client</b><small>curl · X-API-Key</small></div>
+    </div>
+    <div class="arch-arrow">{{ icon('arrow-right') }}</div>
+    <div class="arch-col wide">
+      <div class="node layer" data-flow="2"><b>Security layer</b><small>CSRF · rate limit · auth · headers · request-id logging</small></div>
+      <div class="node-row" data-flow="3">
+        <div class="node">auth/</div><div class="node">main/</div><div class="node">api/</div><div class="node">admin/</div>
+      </div>
+      <div class="node accent" data-flow="4">{{ icon('check') }}<b>ask_flow.py</b><small>validate → guard → RAG → save</small></div>
+    </div>
+    <div class="arch-arrow">{{ icon('arrow-right') }}</div>
+    <div class="arch-col">
+      <div class="node accent" data-flow="5">{{ icon('sparkles') }}<b>rag_service.py</b><small>timeout + extractive fallback</small></div>
+      <div class="node" data-flow="6">{{ icon('search') }}<b>rag_pipeline.py</b><small>MiniLM · FAISS · Qwen2.5-0.5B</small></div>
+    </div>
+    <div class="arch-arrow">{{ icon('arrow-right') }}</div>
+    <div class="arch-col">
+      <div class="node" data-flow="7">{{ icon('database') }}<b>SQLite</b><small>User · Conversation · ApiKey</small></div>
+      <div class="node" data-flow="7">{{ icon('logs') }}<b>logs/app.log</b><small>JSON lines</small></div>
+    </div>
+  </div>
+  <p class="flow-note" id="flow-note">Press <b>Next ⏭</b> to follow one question through the system, one hop at a time.</p>
+</section>
+
+<section class="card">
+  <div class="card-head"><h3>{{ icon('file') }}Production feature → file</h3></div>
+  <div class="table-wrap">
+  <table class="table">
+    <thead><tr><th>Feature</th><th>Where</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>UI + API</td><td><code>app/main/, app/api/</code></td><td>8 pages + <code>/api/v1/ask|history|health</code>, JSON errors</td></tr>
+      <tr><td>AI capability</td><td><code>app/services/rag_service.py</code></td><td>Only door to the Task 8 RAG pipeline; fallback on LLM failure/timeout</td></tr>
+      <tr><td>Persistence</td><td><code>app/models.py</code></td><td>SQLite tables User, Conversation, ApiKey; <code>flask seed</code></td></tr>
+      <tr><td>Authentication</td><td><code>app/auth/</code></td><td>Flask-Login sessions; API key for the REST API</td></tr>
+      <tr><td>Validation</td><td><code>app/schemas.py</code></td><td>Pydantic schemas with field-level messages</td></tr>
+      <tr><td>Logging</td><td><code>app/logging_setup.py</code></td><td>JSON lines: request id, user, route, status, latency</td></tr>
+      <tr><td>Exception handling</td><td><code>app/errors.py</code></td><td>400/401/403/404/429/500/503 → HTML or JSON</td></tr>
+      <tr><td>Config &amp; secrets</td><td><code>config.py, .env</code></td><td>Dev/Prod classes; Prod refuses a default SECRET_KEY</td></tr>
+      <tr><td>Security</td><td><code>app/security.py</code></td><td>Headers, prompt-injection guard, API-key auth, admin check</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="card"><div class="card-head"><h3>{{ icon('sparkles') }}LLM with automatic fallback</h3></div>
+<pre class="code small">try:
+    result.update(self._local_llm(question, sources))
+except Exception as e:            # failure or timeout
+    event("warning", "using extractive fallback",
+          event="llm_fallback", reason=reason)
+    result.update(self._extractive(question, sources),
+                  fallback=True, fallback_reason=reason)</pre></div>
+  <div class="card"><div class="card-head"><h3>{{ icon('shield') }}One flow for UI and API</h3></div>
+<pre class="code small">req = AskRequest.model_validate(payload)   # 422 on error
+if detect_prompt_injection(req.question):
+    status = "blocked"                      # logged, no LLM
+else:
+    result = rag_service.ask(req.question)
+db.session.add(Conversation(...))           # persisted</pre></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/how.js') }}"></script>{% endblock %}

@@ -1,0 +1,29 @@
+{% from "_icons.html" import icon with context %}
+{# One control bar for every animated demo and the Guided Tour (logic: static/js/app.js -> TM.player) #}
+<div class="tour-spot" id="tour-spot" hidden></div>
+<div class="tour-caption" id="tour-caption" hidden role="dialog" aria-live="polite" aria-labelledby="tour-req">
+  <div class="tour-cap-head"><span class="tour-req" id="tour-req"></span><span class="tour-cap-step" id="tour-cap-step"></span></div>
+  <p id="tour-text"></p>
+  <div class="tour-cap-foot">
+    <span class="muted small">Next ⏭ / → to continue</span>
+    <button class="btn btn-ghost btn-sm" id="tour-exit" type="button">{{ icon('x') }}Exit tour</button>
+  </div>
+</div>
+<div class="player" id="player" role="toolbar" aria-label="Demo controls">
+  <div class="pl-group">
+    <button class="pl-btn" id="pl-back" type="button" aria-label="Back (Left arrow)">⏮ Back</button>
+    <button class="pl-btn pl-play" id="pl-play" type="button" aria-label="Play or pause (Space)">▶ Play</button>
+    <button class="pl-btn pl-next" id="pl-next" type="button" aria-label="Next (Right arrow)">Next ⏭</button>
+  </div>
+  <span class="pl-sep"></span>
+  <div class="pl-group"><span class="pl-label">Mode</span>
+    <div class="pl-seg" id="pl-mode" role="group" aria-label="Mode"><button type="button" data-mode="manual">Manual</button><button type="button" data-mode="auto">Auto</button></div>
+  </div>
+  <span class="pl-sep"></span>
+  <div class="pl-group"><span class="pl-label">Speed</span>
+    <div class="pl-seg" id="pl-speed" role="group" aria-label="Speed"><button type="button" data-speed="slow">Slow</button><button type="button" data-speed="medium">Medium</button><button type="button" data-speed="fast">Fast</button></div>
+  </div>
+  <span class="pl-sep"></span>
+  <div class="pl-status"><span class="pl-title" id="pl-title">No demo</span><span class="pl-step" id="pl-step">Step 0 / 0</span></div>
+  <button class="pl-btn pl-exit" id="pl-exit" type="button" hidden>✕ Exit tour</button>
+</div>

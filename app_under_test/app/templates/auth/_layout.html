@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block body_class %}auth{% endblock %}
+{% block layout %}
+<div class="auth-shell">
+  <section class="auth-hero">
+    <div class="mesh" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="hero-inner">
+      <a class="brand brand-light" href="{{ url_for('auth.login') }}"><span class="brand-mark">{{ icon('compass') }}</span><span>TripMind</span></a>
+      <h2>Travel answers you can verify.</h2>
+      <p>Ask about 25 Indian destinations. Every answer is generated from Wikipedia passages and cites its sources, or honestly says it doesn't know.</p>
+      <div class="preview-card" aria-hidden="true">
+        <div class="pv-q">{{ icon('user') }}What is Munnar famous for?</div>
+        <div class="pv-a">
+          <span class="badge badge-success">{{ icon('check') }}Answered</span>
+          <p>Munnar is known for its tea plantations and is a popular hill station in Kerala <i>[1]</i>.</p>
+          <div class="pv-sources"><span>[1] Munnar · 0.71</span><span>[2] Munnar · 0.64</span><span>[3] Kodagu · 0.52</span></div>
+        </div>
+        <div class="pv-strip"><span class="done">Validate</span><span class="done">Retrieve</span><span class="done">Generate</span><span class="done">Save</span></div>
+      </div>
+      <ul class="hero-points">
+        <li>{{ icon('shield') }}CSRF, rate limits, prompt-injection guard</li>
+        <li>{{ icon('database') }}Every conversation saved to SQLite</li>
+        <li>{{ icon('code') }}REST API with per-user keys</li>
+      </ul>
+    </div>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-card page" id="{% block card_id %}auth-card{% endblock %}">
+      {% block form %}{% endblock %}
+    </div>
+  </section>
+</div>
+{% endblock %}

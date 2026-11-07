@@ -1,0 +1,77 @@
+{% from "_icons.html" import icon with context %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}TripMind{% endblock %} · TripMind</title>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+</head>
+<body class="{% block body_class %}app{% endblock %}" data-auth="{{ 1 if current_user.is_authenticated else 0 }}"
+      data-admin="{{ 1 if current_user.is_authenticated and current_user.is_admin else 0 }}">
+{% block layout %}
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('main.dashboard') }}">
+      <span class="brand-mark">{{ icon('compass') }}</span><span>TripMind</span>
+    </a>
+    {% set ep = request.endpoint or '' %}
+    <nav class="nav">
+      <span class="nav-label">Workspace</span>
+      <a href="{{ url_for('main.dashboard') }}" class="{{ 'active' if ep == 'main.dashboard' }}" id="nav-dashboard">{{ icon('dashboard') }}Dashboard</a>
+      <a href="{{ url_for('main.ask_page') }}" class="{{ 'active' if ep == 'main.ask_page' }}" id="nav-ask">{{ icon('message') }}Ask TripMind</a>
+      <a href="{{ url_for('main.history') }}" class="{{ 'active' if ep.startswith('main.history') }}" id="nav-history">{{ icon('history') }}History</a>
+      <a href="{{ url_for('main.api_page') }}" class="{{ 'active' if ep == 'main.api_page' }}" id="nav-api">{{ icon('code') }}API</a>
+      <span class="nav-label">Production</span>
+      {% if current_user.is_authenticated and current_user.is_admin %}
+      <a href="{{ url_for('admin.logs') }}" class="{{ 'active' if ep == 'admin.logs' }}" id="nav-logs">{{ icon('logs') }}Admin · Logs</a>
+      {% endif %}
+      <a href="{{ url_for('main.security_page') }}" class="{{ 'active' if ep == 'main.security_page' }}" id="nav-security">{{ icon('shield') }}Security</a>
+      <a href="{{ url_for('main.how_page') }}" class="{{ 'active' if ep == 'main.how_page' }}" id="nav-how">{{ icon('layers') }}How it works</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="provider-pill">{{ icon('zap') }}LLM: {{ llm_provider }}</div>
+      {% if current_user.is_authenticated %}
+      <div class="user-chip">
+        <span class="avatar">{{ current_user.username[:1]|upper }}</span>
+        <span class="user-meta"><b>{{ current_user.username }}</b><small>{{ 'Admin' if current_user.is_admin else 'Member' }}</small></span>
+        <form method="post" action="{{ url_for('auth.logout') }}" id="logout-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="icon-btn" aria-label="Sign out">{{ icon('logout') }}</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open menu">{{ icon('menu') }}</button>
+      <div class="topbar-title">
+        <h1>{% block heading %}{% endblock %}</h1>
+        <p>{% block subheading %}{% endblock %}</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" id="tour-start-top" data-tour-start>{{ icon('flag') }}<span>Guided Tour</span></button>
+        <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode">{{ icon('moon', 'only-light') }}{{ icon('sun', 'only-dark') }}</button>
+      </div>
+    </header>
+    <main class="page" id="page">{% block content %}{% endblock %}</main>
+  </div>
+</div>
+{% endblock %}
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div id="flashes" hidden>{% for cat, msg in get_flashed_messages(with_categories=true) %}<span data-cat="{{ cat }}">{{ msg }}</span>{% endfor %}</div>
+{% include "_player.html" %}
+{% block pre_scripts %}{% endblock %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tour.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

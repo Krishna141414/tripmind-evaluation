@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ status }} · {{ title }}{% endblock %}
+{% block heading %}Error {{ status }}{% endblock %}
+{% block subheading %}Friendly error page from app/errors.py{% endblock %}
+{% block body_class %}{{ 'app' if current_user.is_authenticated else 'auth bare' }}{% endblock %}
+{% block content %}<div class="center-wrap">{% include "_error_card.html" %}</div>{% endblock %}
+{% block layout %}
+{% if current_user.is_authenticated %}{{ super() }}{% else %}<main class="page center-wrap full">{% include "_error_card.html" %}</main>{% endif %}
+{% endblock %}

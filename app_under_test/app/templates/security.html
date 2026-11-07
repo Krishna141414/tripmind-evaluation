@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Security{% endblock %}
+{% block heading %}Security{% endblock %}
+{% block subheading %}Every measure below runs in this app. Press “Try it” to see it work live. Full list: SECURITY.md{% endblock %}
+
+{% block content %}
+{% set cards = [
+  ('passwords', 'lock', 'Hashed passwords', 'Passwords are hashed with werkzeug (scrypt + random salt). The plain password is never stored or logged.', 'app/models.py · User.set_password'),
+  ('csrf', 'shield', 'CSRF protection', 'Flask-WTF CSRFProtect checks a token on every form and every session-based POST.', 'app/extensions.py · csrf'),
+  ('ratelimit', 'clock', 'Rate limiting', 'Flask-Limiter: ' ~ rate_limit ~ ' asks per user / API key, ' ~ login_limit ~ ' logins per IP. Exceeding it returns 429.', 'app/extensions.py · limiter'),
+  ('cookies', 'cookie', 'Secure session cookies', 'Session cookie is HttpOnly (JavaScript can\'t read it), SameSite=Lax, and Secure in production.', 'config.py · SESSION_COOKIE_*'),
+  ('headers', 'list', 'Security headers', 'CSP, X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy on every response.', 'app/security.py · add_security_headers'),
+  ('limits', 'ruler', 'Input limits & validation', 'Pydantic: question 3-500 chars. Request bodies over 16 KB are rejected (413). Output is HTML-escaped.', 'app/schemas.py · AskRequest'),
+  ('injection', 'alert', 'Prompt-injection guard', 'Inputs like “ignore previous instructions” are refused before reaching the LLM, saved as blocked and logged.', 'app/security.py · detect_prompt_injection'),
+  ('secrets', 'key', 'Secrets in .env', 'SECRET_KEY, DATABASE_URL, LLM_PROVIDER… come from .env (git-ignored). ProdConfig refuses a default key.', 'config.py · ProdConfig.validate'),
+  ('apikeys', 'database', 'API keys hashed', 'Only the SHA-256 hash of each API key is stored; the key is shown once and can be regenerated.', 'app/models.py · ApiKey'),
+] %}
+<section class="sec-grid">
+  {% for id, ic, title, desc, where in cards %}
+  <article class="card sec-card lift" id="card-{{ id }}">
+    <div class="sec-head"><span class="stat-icon {{ loop.cycle('blue', 'indigo', 'amber', 'green') }}">{{ icon(ic) }}</span><h3>{{ title }}</h3></div>
+    <p class="muted">{{ desc }}</p>
+    <code class="where">{{ where }}</code>
+    <button class="btn btn-soft btn-sm try-btn" data-try="{{ id }}">{{ icon('zap') }}Try it</button>
+    <div class="try-out" data-out="{{ id }}" hidden></div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/security.js') }}"></script>{% endblock %}

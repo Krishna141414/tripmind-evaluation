@@ -1,0 +1,11 @@
+{% from "_icons.html" import icon with context %}
+<div class="error-card card" id="error-card">
+  <div class="error-code {{ 'warn' if status == 429 else 'bad' if status >= 500 else '' }}">{{ status }}</div>
+  <h2>{{ title }}</h2>
+  <p class="muted">{{ text }}</p>
+  <p class="mono small muted">Request ID: {{ g.request_id }}</p>
+  <div class="row-gap center">
+    <a class="btn btn-primary" href="{{ url_for('main.index') }}">{{ icon('compass') }}Back to TripMind</a>
+    {% if status == 429 %}<span class="badge badge-warn">{{ icon('clock') }}Try again in a minute</span>{% endif %}
+  </div>
+</div>

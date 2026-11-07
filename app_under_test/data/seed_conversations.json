@@ -1,0 +1,134 @@
+[
+ {
+  "question": "What is Munnar famous for?",
+  "answer": "Munnar is a town located in the Idukki district of the southwestern Indian state of Kerala [2]*.",
+  "sources": [
+   {
+    "n": 1,
+    "title": "Munnar",
+    "url": "https://en.wikipedia.org/wiki/Munnar",
+    "chunk_id": 3,
+    "text": "which the name of Munnar is derived.\n50 years later Sir Charles Trevelyan who was the Governor of Madras, instructed Col. Douglas Hamilton to explore the hill country in the western part of the Madras Presidency, requesting special advice on the feasibility of establishing sanatoria for the British in the South and of developing revenue- earning projects without endangering the environment, as had happened in Ceylon where coffee had destroyed not only the rain forest but also paddy cultivation",
+    "score": 0.5857
+   },
+   {
+    "n": 2,
+    "title": "Munnar",
+    "url": "https://en.wikipedia.org/wiki/Munnar",
+    "chunk_id": 0,
+    "text": "Munnar is a town located in the Idukki district of the southwestern Indian state of Kerala. Munnar is situated at around 1,600 metres (5,200 ft) above mean sea level, in the Western Ghats mountain range. This ancient plantation settlement, dominated by its tea industry, is also a growing modern hill station.\nEtymology.\nThe name Munnar is a combination of the words \"Munnu\" and \"Aaru\" in the local languages of Malayalam/Tamil meaning \"three rivers\", referring to its location at the confluence of",
+    "score": 0.5121
+   },
+   {
+    "n": 3,
+    "title": "Munnar",
+    "url": "https://en.wikipedia.org/wiki/Munnar",
+    "chunk_id": 2,
+    "text": "Tradition states that Colonel Arthur Wellesley, later the Duke of Wellington, was the first British person to pass through Munnar during Tipu Sultan's campaign in Travancore, but this is unsubstantiated. The first survey of the terrain was undertaken by Benjamin Swayne Ward in 1816–1817, who followed Periyar into the Western Ghats and established a camp at the confluence of three rivers, from which the name of Munnar is derived.\n50 years later Sir Charles Trevelyan who was the Governor of",
+    "score": 0.4902
+   }
+  ],
+  "status": "answered",
+  "provider": "local",
+  "latency_ms": 17972
+ },
+ {
+  "question": "What is Leh known for?",
+  "answer": "Leh is a city in Indian-administered Ladakh in the disputed Kashmir region [1]*. It is the largest city and the joint capital of Ladakh [1]*. Leh, located in the Leh district, has been the capital of Ladakh since the medieval period and was historically capital of the Kingdom of Ladakh [1]*.",
+  "sources": [
+   {
+    "n": 1,
+    "title": "Leh",
+    "url": "https://en.wikipedia.org/wiki/Leh",
+    "chunk_id": 0,
+    "text": "Leh (Ladakhi: སླེ་) is a city in Indian-administered Ladakh in the disputed Kashmir region. It is the largest city and the joint capital of Ladakh. Leh, located in the Leh district, has been the capital of Ladakh since the medieval period and was historically capital of the Kingdom of Ladakh.\nThe seat of the kingdom, Leh Palace, the former residence of the royal family of Ladakh, was built in the 17th-century and is frequently contrasted with the Potala Palace in Tibet. Leh is at an altitude of",
+    "score": 0.5132
+   },
+   {
+    "n": 2,
+    "title": "Leh",
+    "url": "https://en.wikipedia.org/wiki/Leh",
+    "chunk_id": 25,
+    "text": "1642. The Leh Palace is nine storeys high; the upper floors accommodated the royal family, and the stables and storerooms are located on the lower floors. The palace was abandoned when Kashmiri forces besieged it in the mid-19th century. The royal family moved their premises south to their current home in Stok Palace on the southern bank of the Indus River.\nLeh Old Town.\nThe old town of Leh was added to the World Monuments Fund's list of 100 most endangered sites due to increased rainfall, due",
+    "score": 0.5027
+   },
+   {
+    "n": 3,
+    "title": "Leh",
+    "url": "https://en.wikipedia.org/wiki/Leh",
+    "chunk_id": 17,
+    "text": "borne by the Ruler of Kashmir.\nIn recent times, Muslims heading to Leh from neighbouring Kargil and Kashmir has increased due to better opportunities. A growing pattern in the city and surrounding areas shows more Buddhist women choosing to marry Muslim men.\nOther religions such as Christianity, Hinduism and Sikhism do exist in Leh. The small Christian community in Leh descend from Tibetan Buddhists converted by German Moravian missionaries, who established a church at Keylong in Lahaul in the",
+    "score": 0.4946
+   }
+  ],
+  "status": "answered",
+  "provider": "local",
+  "latency_ms": 55069
+ },
+ {
+  "question": "What can I see in Hampi?",
+  "answer": "Near the great platform is an inscription that shows a battle procession, couples, and scenes of common citizens celebrating Holi (Vasantotsava) [1]*. Near the south side is a depiction of musicians and dancers, including female stick-dancers [1]*. The third level depicts a battle procession, couples, and scenes of common citizens celebrating Holi (Vasantotsava) [1]*. Near the great platform is an inscription showing a battle procession, couples, and scenes of common citizens celebrating Holi (Vasantotsava) [1]*.",
+  "sources": [
+   {
+    "n": 1,
+    "title": "Hampi",
+    "url": "https://en.wikipedia.org/wiki/Hampi",
+    "chunk_id": 79,
+    "text": "during the destruction of Hampi.\nThe two lower levels of the platform is made of granite. It has reliefs—possibly a catalogue of 14th-century royal activities—and lines of marching animals including elephants, horses and camels. Reliefs on the south side show musicians and dancers, including female stick-dancers. The third level reliefs show a battle procession, couples and scenes of common citizens celebrating Holi (Vasantotsava) by throwing water at each other. Near the great platform is an",
+    "score": 0.5135
+   },
+   {
+    "n": 2,
+    "title": "Hampi",
+    "url": "https://en.wikipedia.org/wiki/Hampi",
+    "chunk_id": 86,
+    "text": "Sinopoli, the Hampi water infrastructure was for the use of travellers, rituals, domestic use and irrigation.\nFountains and community kitchen.\nSeveral major temples in Hampi have an embedded kitchen and 100-or-more-pillared feeding halls. Hampi also had a dedicated public Bhojana shala (house of food) where numerous thali (dish) were carved in series in a rock on both sides of a water channel. One example is found near an octagonal fountain in the south of the royal centre; according to",
+    "score": 0.4694
+   },
+   {
+    "n": 3,
+    "title": "Hampi",
+    "url": "https://en.wikipedia.org/wiki/Hampi",
+    "chunk_id": 29,
+    "text": "for the Vijayanagara period and before. The Archaeological Survey of India continues to conduct excavations in the area.\nDescription.\nHampi is located in hilly terrain formed by granite boulders The Hampi monuments comprising the UNESCO world heritage site are a subset of the Vijayanagara ruins. Almost all of the monuments were built between 1336 and 1570 CE during the Vijayanagara rule. The site has about 1,600 monuments and covers 41.5 square kilometres (16.0 sq mi).\nThe Hampi site has been",
+    "score": 0.455
+   }
+  ],
+  "status": "answered",
+  "provider": "local",
+  "latency_ms": 28194
+ },
+ {
+  "question": "What is the capital of Brazil?",
+  "answer": "I couldn't find this in the travel guide documents.",
+  "sources": [
+   {
+    "n": 1,
+    "title": "Goa",
+    "url": "https://en.wikipedia.org/wiki/Goa",
+    "chunk_id": 0,
+    "text": "Goa is a state on the southwestern coast of India within the Konkan region. It is geographically separated from the Deccan highlands by the Western Ghats. It is bordered by the Indian states of Maharashtra to the north and Karnataka to the east and south, with the Arabian Sea forming its western coastline. It was the capital of the eastern Portuguese empire until 1961. It is India's smallest state by area and fourth-smallest by population. Panaji (Panjim) is the state's capital, while Vasco da",
+    "score": 0.4732
+   },
+   {
+    "n": 2,
+    "title": "Goa",
+    "url": "https://en.wikipedia.org/wiki/Goa",
+    "chunk_id": 1,
+    "text": "by area and fourth-smallest by population. Panaji (Panjim) is the state's capital, while Vasco da Gama is its largest city by population. The state's official language is Konkani, spoken by the majority of its inhabitants.\nThe Portuguese, who first voyaged to the subcontinent in the early 16th century as merchants, conquered it on request of Timoji shortly thereafter. Goa became an overseas territory of the Portuguese Empire and part of what was then known as Portuguese India, remaining under",
+    "score": 0.4508
+   },
+   {
+    "n": 3,
+    "title": "Goa",
+    "url": "https://en.wikipedia.org/wiki/Goa",
+    "chunk_id": 4,
+    "text": "India named Goa the best-placed state in terms of infrastructure, while India's National Commission on Population ranked it as having the highest quality of life in the country. It ranks highest among Indian states in the Human Development Index. Goa has a robust tourism sector. It has biodiversity, lying near the Western Ghats, a biodiversity hotspot.\nEtymology.\nAfter the Bahmani-Bijapuri city of Goa was captured by Afonso de Albuquerque in 1510, and made the capital of the Estado da Índia,",
+    "score": 0.403
+   }
+  ],
+  "status": "not_found",
+  "provider": "retrieval",
+  "latency_ms": 60
+ }
+]

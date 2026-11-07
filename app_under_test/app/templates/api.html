@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}API{% endblock %}
+{% block heading %}REST API{% endblock %}
+{% block subheading %}JSON in/out at /api/v1 · authenticated with your personal API key.{% endblock %}
+{% block content %}
+<section class="grid-2 api-top">
+  <div class="card" id="key-card">
+    <div class="card-head"><h3>{{ icon('key') }}Your API key</h3><span class="badge badge-indigo">SHA-256 hashed at rest</span></div>
+    <div class="key-row">
+      <code class="key-box" id="key-box" data-prefix="{{ key.prefix if key else '' }}">{{ (key.prefix ~ '••••••••••••••••••••••••') if key else 'No key yet' }}</code>
+      <button class="icon-btn" id="key-reveal" aria-label="Show or hide key" disabled>{{ icon('eye') }}</button>
+      <button class="icon-btn" id="key-copy" aria-label="Copy key" disabled>{{ icon('copy') }}</button>
+    </div>
+    <p class="muted small" id="key-note">
+      {% if key %}Created {{ key.created_at.strftime('%d %b %Y %H:%M') }} UTC · last used {{ key.last_used_at.strftime('%d %b %H:%M') if key.last_used_at else 'never' }}.{% endif %}
+      Only a hash is stored, so the full key is shown <b>once</b>, right after you regenerate it.
+    </p>
+    <button class="btn btn-primary" id="key-regen">{{ icon('refresh') }}Regenerate key</button>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>{{ icon('list') }}Endpoints</h3><span class="muted small">JSON in, JSON out</span></div>
+    <ul class="endpoints">
+      <li><span class="method post">POST</span><code>/api/v1/ask</code><span class="muted small">Ask a question · key · {{ config.RATE_LIMIT }}</span></li>
+      <li><span class="method get">GET</span><code>/api/v1/history</code><span class="muted small">Your saved conversations · key · ?limit&amp;offset</span></li>
+      <li><span class="method get">GET</span><code>/api/v1/health</code><span class="muted small">Service + model status · public</span></li>
+    </ul>
+    <div class="codebox">
+    <div class="codebox-head"><button class="codebox-toggle" id="curl-toggle" type="button" aria-expanded="false" aria-controls="curl-example">▸ Show curl example</button><button class="btn btn-ghost btn-sm" id="curl-copy" type="button">{{ icon('copy') }}Copy</button></div>
+    <pre class="code small" id="curl-example" hidden>curl -X POST http://127.0.0.1:5000/api/v1/ask \
+  -H "X-API-Key: <span id="curl-key">YOUR_KEY</span>" -H "Content-Type: application/json" \
+  -d '{"question": "What is Munnar famous for?"}'</pre>
+    </div>
+  </div>
+</section>
+
+<section class="card" id="playground">
+  <div class="card-head wrap"><h3>{{ icon('zap') }}API playground</h3>
+    <div class="seg" id="pg-examples" role="group" aria-label="Example requests">
+      <button type="button" data-ex="valid" class="on">Valid ask</button><button type="button" data-ex="nokey">Missing key</button>
+      <button type="button" data-ex="invalid">Invalid body</button><button type="button" data-ex="history">History</button><button type="button" data-ex="health">Health</button>
+    </div>
+  </div>
+  <div class="grid-2 pg-grid">
+    <div class="pg-req">
+      <h4>Request</h4>
+      <div class="pg-line"><span class="method" id="pg-method">POST</span><code id="pg-url">/api/v1/ask</code></div>
+      <dl class="kv-list" id="pg-headers"></dl>
+      <label class="field" id="pg-question-field"><span>Question (sent as JSON)</span><input id="pg-question" maxlength="600"></label>
+      <p class="muted small" id="pg-desc"></p>
+      <button class="btn btn-primary" id="pg-send" type="button">{{ icon('send') }}Send request</button>
+    </div>
+    <div class="pg-res">
+      <h4>Response</h4>
+      <div class="pg-summary empty-state" id="pg-summary">Pick an example and press “Send request”.</div>
+      <div class="codebox" id="pg-code" hidden>
+        <div class="codebox-head">
+          <button class="codebox-toggle" id="pg-toggle" type="button" aria-expanded="false" aria-controls="pg-response">▸ Show JSON response</button>
+          <button class="btn btn-ghost btn-sm" id="pg-copy" type="button">{{ icon('copy') }}Copy</button>
+        </div>
+        <pre class="code json-out" id="pg-response" hidden></pre>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/api.js') }}"></script>{% endblock %}

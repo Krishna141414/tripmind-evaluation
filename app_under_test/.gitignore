@@ -1,0 +1,15 @@
+# secrets + local state
+.env
+.venv/
+venv/
+instance/
+logs/
+index/
+*.db
+# caches
+__pycache__/
+*.py[cod]
+.cache/
+hf_cache/
+.pytest_cache/
+.claude/

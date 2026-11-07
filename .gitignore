@@ -1,0 +1,17 @@
+# local environment and state (never commit)
+.venv/
+venv/
+instance/
+logs/
+**/instance/
+**/logs/
+app_under_test/index/
+*.db
+.env
+# caches
+__pycache__/
+*.py[cod]
+.cache/
+hf_cache/
+.pytest_cache/
+.claude/

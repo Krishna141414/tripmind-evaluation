@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Welcome back, {{ current_user.username }}{% endblock %}
+{% block subheading %}Your TripMind activity, computed live from the SQLite database.{% endblock %}
+{% block content %}
+<section class="stats" id="stats">
+  <div class="stat card lift"><span class="stat-icon blue">{{ icon('message') }}</span><div><small>Questions asked</small><b data-count="{{ stats.total }}">{{ stats.total }}</b></div></div>
+  <div class="stat card lift"><span class="stat-icon green">{{ icon('check') }}</span><div><small>Answered</small><b data-count="{{ stats.answered }}">{{ stats.answered }}</b></div></div>
+  <div class="stat card lift"><span class="stat-icon amber">{{ icon('search') }}</span><div><small>Not in documents</small><b data-count="{{ stats.not_found }}">{{ stats.not_found }}</b></div></div>
+  <div class="stat card lift"><span class="stat-icon indigo">{{ icon('clock') }}</span><div><small>Avg response time</small><b data-count="{{ stats.avg_s }}" data-decimals="2" data-suffix=" s">{{ '%.2f'|format(stats.avg_s) }} s</b></div></div>
+</section>
+
+<section class="grid-2">
+  <div class="card" id="chart-card">
+    <div class="card-head"><h3>{{ icon('dashboard') }}Answer outcomes</h3><span class="muted small">{{ stats.blocked }} blocked by the guard</span></div>
+    <div class="chart-box"><canvas id="status-chart" aria-label="Answer outcomes chart"></canvas></div>
+  </div>
+  <div class="card" id="latency-card">
+    <div class="card-head"><h3>{{ icon('clock') }}Response time (last 10)</h3><span class="muted small">seconds, CPU model</span></div>
+    <div class="chart-box"><canvas id="latency-chart" aria-label="Response time chart"></canvas></div>
+  </div>
+</section>
+
+<section class="card" id="recent-card">
+  <div class="card-head"><h3>{{ icon('history') }}Recent conversations</h3><a class="btn btn-ghost btn-sm" href="{{ url_for('main.history') }}">View all{{ icon('arrow-right') }}</a></div>
+  {% if recent %}
+  <ul class="recent">
+    {% for c in recent %}
+    <li><a href="{{ url_for('main.history_detail', cid=c.id) }}" class="lift-soft">
+      {% include "_status_badge.html" %}
+      <span class="recent-q">{{ c.question }}</span>
+      <span class="muted small">{{ (c.latency_ms / 1000)|round(2) }} s · {{ c.created_at.strftime('%d %b %H:%M') }}</span>
+    </a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty">{{ icon('message') }}<p>No questions yet. <a href="{{ url_for('main.ask_page') }}">Ask your first one</a>.</p></div>
+  {% endif %}
+</section>
+<script type="application/json" id="chart-data">{{ chart|tojson }}</script>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

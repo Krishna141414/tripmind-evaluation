@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon with context %}
+{% block title %}History{% endblock %}
+{% block heading %}History{% endblock %}
+{% block subheading %}Every conversation is saved in SQLite ({{ total }} total) and survives restarts.{% endblock %}
+{% block content %}
+<section class="card" id="history-card">
+  <div class="card-head wrap">
+    <form method="get" class="search" id="history-search" role="search">
+      {{ icon('search') }}
+      <input name="q" id="history-q" value="{{ q }}" placeholder="Search questions and answers…" maxlength="100" aria-label="Search history">
+      <button class="btn btn-soft btn-sm" type="submit">Search</button>
+    </form>
+    <span class="muted small" id="history-count">{{ rows|length }} shown</span>
+  </div>
+  {% if rows %}
+  <div class="table-wrap">
+    <table class="table" id="history-table">
+      <thead><tr><th>Question</th><th>Status</th><th>Provider</th><th>Latency</th><th>Channel</th><th>When</th><th></th></tr></thead>
+      <tbody>
+      {% for c in rows %}
+        <tr data-text="{{ (c.question ~ ' ' ~ c.answer)|lower }}">
+          <td class="q-cell">{{ c.question }}</td>
+          <td>{% include "_status_badge.html" %}</td>
+          <td><span class="tag">{{ c.provider }}</span></td>
+          <td>{{ (c.latency_ms / 1000)|round(2) }} s</td>
+          <td><span class="tag">{{ c.channel }}</span></td>
+          <td class="muted small nowrap">{{ c.created_at.strftime('%d %b %Y %H:%M') }}</td>
+          <td><a class="btn btn-ghost btn-sm" href="{{ url_for('main.history_detail', cid=c.id) }}">Open{{ icon('arrow-right') }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty">{{ icon('history') }}<p>{% if q %}No conversations match "{{ q }}".{% else %}No conversations yet.{% endif %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/history.js') }}"></script>{% endblock %}

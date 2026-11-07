@@ -1,0 +1,8 @@
+category,baseline_passed,baseline_n,baseline_pass_rate,safeguarded_passed,safeguarded_n,safeguarded_pass_rate,baseline_mean_groundedness,baseline_hit_at_3,baseline_median_latency_ms,safeguarded_mean_groundedness,safeguarded_hit_at_3,safeguarded_median_latency_ms
+answer_quality,7,12,58.3,7,12,58.3,,,,,,
+grounding,7,8,87.5,7,8,87.5,,,,,,
+hallucination,6,8,75.0,8,8,100.0,,,,,,
+invalid_ambiguous,7,8,87.5,8,8,100.0,,,,,,
+prompt_injection,8,8,100.0,8,8,100.0,,,,,,
+tool_failure,3,6,50.0,6,6,100.0,,,,,,
+overall,38,50,76.0,44,50,88.0,0.885,1.0,2272.0,1.0,1.0,30.0
